@@ -1,0 +1,49 @@
+[
+    
+    {
+      "CourseCode": "EE201",
+      "CourseName": "Electrical Circuit Analysis",
+      "CourseDescription": "Fundamentals of circuit theory, including Kirchhoff's laws, network theorems, and AC/DC analysis."
+    },
+    {
+      "CourseCode": "ME251",
+      "CourseName": "Engineering Mechanics",
+      "CourseDescription": "Study of forces, motion, and equilibrium in mechanical systems, including statics and dynamics."
+    },
+    {
+      "CourseCode": "CE301",
+      "CourseName": "Structural Analysis",
+      "CourseDescription": "Analysis of structures, including beams, trusses, and frames, for stability and strength."
+    },
+    {
+      "CourseCode": "CHM101",
+      "CourseName": "General Chemistry",
+      "CourseDescription": "Introduction to chemical principles, including atomic structure, bonding, and thermodynamics."
+    },
+    {
+      "CourseCode": "PHY102",
+      "CourseName": "Physics Laboratory",
+      "CourseDescription": "Topics in electromagnetism, optics, and quantum mechanics relevant to engineering and sciences."
+    },
+    {
+      "CourseCode": "MTH203",
+      "CourseName": "Linear Algebra",
+      "CourseDescription": "Fundamentals of vector spaces, matrices, determinants, and eigenvalues."
+    },
+    {
+      "CourseCode": "ECO101",
+      "CourseName": "Principles Of Economics",
+      "CourseDescription": "Introduction to microeconomics and macroeconomics concepts and their applications."
+    },
+    {
+      "CourseCode": "AE311",
+      "CourseName": "Aerodynamics",
+      "CourseDescription": "Study of fluid dynamics with applications to the design and analysis of aircraft and aerospace systems."
+    },
+    {
+      "CourseCode": "HSS102",
+      "CourseName": "Introduction To Philosophy",
+      "CourseDescription": "Exploration of fundamental philosophical questions and their historical and contemporary contexts."
+    }
+  ]
+
