@@ -1,50 +1,40 @@
 "use client";
 
-import React, { useState } from "react";
-import { TextField } from "@mui/material";
+import React, {useEffect, useState} from "react";
+import { TextField, Button } from "@mui/material";
 import ShimmerButton from "@/components/ui/shimmer-button";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 
-function LoginPage() {
+function SignUpPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [error, setError] = useState("");
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-     const [loading, setLoading] = useState(false);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
+   const [buttonDisabled, setButtonDisabled] = useState(false);
+   const [loading, setLoading] = useState(false);
+  const handleSignUp = async(e) => {
+     e.preventDefault();
+    try { 
       setLoading(true);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/register`,
         {
           email,
           password,
         }
       );
-      console.log("User logged in successfully:", response.data.data.token);
-      // Store the token in cookies or local storage
-      document.cookie = `token=${response.data.data.token}; path=/;`;
-      // localStorage.setItem("token", response.data.data.token);
-      Cookies.set("token", response.data.data.token);
-      Cookies.set("user", response.data.data.email);
+      router.push("/login");
+      console.log("User registered successfully:", response.data);
 
-      // Redirect to the home page or dashboard
-      router.push("/");
-      toast.success("User logged in successfully");
     } catch (error) {
-      // console.error("Error logging in:", err);
-      // setError("Failed to login. Please try again.");
-      // console.log("Error logging in:", err);
+      // console.error("Error registering user:", err);
+      // setError("Failed to register. Please try again.");
       toast.error(error.response.data.message);
-    } finally {
+    } finally{
       setLoading(false);
     }
   };
@@ -54,20 +44,22 @@ function LoginPage() {
       <ToastContainer/>
       <div className="w-[90%] max-w-md p-8 bg-[rgba(0,0,0,0.6)] shadow-lg rounded-lg">
         <h1 className="text-3xl font-bold text-center text-white mb-6">
-          {loading ? "Processing" : "Login"}
+          {loading ? "Processing" : "Register"}
         </h1>
-        <form className="flex flex-col gap-6" onSubmit={handleLogin}>
+        <form className="flex flex-col gap-6">
+          {/* Email Field */}
           <TextField
-            label="Email"
+            type="email"
             variant="outlined"
             fullWidth
             required
             className="bg-white"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            label="Password"
+            // label="Password"
             type="password"
             variant="outlined"
             fullWidth
@@ -75,6 +67,7 @@ function LoginPage() {
             className="bg-white"
             placeholder="Password"
             value={password}
+            autoComplete="on"
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && <p className="text-red-500">{error}</p>}
@@ -82,19 +75,19 @@ function LoginPage() {
             variant="contained"
             color="primary"
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold"
-            type="submit"
+            onClick={handleSignUp}
             fullWidth
           >
-            {buttonDisabled ? "No Login" : "Login"}
+            {buttonDisabled ? "No Register" : "Register"}
           </ShimmerButton>
           <Link href="/" className="text-white text-center hover:underline">
             Back to Home
           </Link>
           <Link
-            href="/register"
+            href="/login"
             className="text-white text-center hover:underline"
           >
-            Register
+            Login
           </Link>
         </form>
       </div>
@@ -102,4 +95,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignUpPage;
