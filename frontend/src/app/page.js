@@ -199,6 +199,11 @@ const Home = () => {
         }
       );
       toast.success("Course edited successfully");
+      setOriginalCourses((prevCourses) =>
+        prevCourses.map((course) =>
+          course.id === selectedCourse.id ? response.data.data : course
+        )
+      );
       setCourses((prevCourses) =>
         prevCourses.map((course) =>
           course.id === selectedCourse.id ? response.data.data : course
