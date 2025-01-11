@@ -28,11 +28,8 @@ function SignUpPage() {
         }
       );
       router.push("/login");
-      console.log("User registered successfully:", response.data);
 
     } catch (error) {
-      // console.error("Error registering user:", err);
-      // setError("Failed to register. Please try again.");
       toast.error(error.response.data.message);
     } finally{
       setLoading(false);
@@ -47,7 +44,6 @@ function SignUpPage() {
           {loading ? "Processing" : "Register"}
         </h1>
         <form className="flex flex-col gap-6">
-          {/* Email Field */}
           <TextField
             type="email"
             variant="outlined"
@@ -59,7 +55,6 @@ function SignUpPage() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            // label="Password"
             type="password"
             variant="outlined"
             fullWidth

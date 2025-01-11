@@ -29,20 +29,12 @@ function LoginPage() {
           password,
         }
       );
-      console.log("User logged in successfully:", response.data.data.token);
-      // Store the token in cookies or local storage
       document.cookie = `token=${response.data.data.token}; path=/;`;
-      // localStorage.setItem("token", response.data.data.token);
       Cookies.set("token", response.data.data.token);
       Cookies.set("user", response.data.data.email);
-
-      // Redirect to the home page or dashboard
       router.push("/");
       toast.success("User logged in successfully");
     } catch (error) {
-      // console.error("Error logging in:", err);
-      // setError("Failed to login. Please try again.");
-      // console.log("Error logging in:", err);
       toast.error(error.response.data.message);
     } finally {
       setLoading(false);

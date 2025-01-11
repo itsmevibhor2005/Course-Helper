@@ -22,16 +22,13 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-// import { Box } from "lucide-react";
 
 const Home = () => {
   const [token, setToken] = useState(null);
   const router = useRouter();
   const [email, setEmail] = useState("");
 
-  // localStorage.getItem("user")
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = Cookies.get("token");
@@ -40,7 +37,6 @@ const Home = () => {
         const user= Cookies.get("user");
         setEmail(user);
       }
-      // console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
     }
   }, []);
 
@@ -56,23 +52,19 @@ const Home = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/course`);
-        // console.log("Courses:", response.data.data);
+        
         setOriginalCourses(response.data.data);
 
       } catch (err) {
-        // console.error("Error fetching courses:", err);
         toast.error(error.response.data.message);
       }
     };
     fetchCourses();
   }, []);
-  // console.log(originalCourses)
   const [searchQuery, setSearchQuery] = useState("");
   const [courses, setCourses] = useState(
     originalCourses.map((course) => ({ ...course, showDescription: false }))
   );
-  // console.log(courses)
-  // const [descBox, setDescBox] = useState(false);
 
   const [error, setError] = useState("");
 
@@ -114,7 +106,6 @@ const Home = () => {
           : course
       )
     );
-    console.log(courses);
   };
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -144,7 +135,6 @@ const Home = () => {
           },
         }
       );
-      // console.log("Course added successfully:", response.data.data);
       toast.success("Course added successfully");
       setOriginalCourses((prevCourses) => [...prevCourses, response.data.data]);
       setCourses((prevCourses) => [
@@ -157,7 +147,6 @@ const Home = () => {
       setCourseCredit("");
       handleClose();
     } catch (err) {
-      // console.error("Error adding course:", err);
       toast.error(error.response.data.message);
     }
   };
@@ -172,7 +161,6 @@ const Home = () => {
           },
         }
       );
-      // console.log("Course deleted successfully:", response.data.data);
       toast.success("Course deleted successfully");
       setOriginalCourses((prevCourses) =>
         prevCourses.filter((c) => c.id !== course.id)
@@ -181,7 +169,6 @@ const Home = () => {
         prevCourses.filter((c) => c.id !== course.id)
       );
     } catch (error) {
-      // console.error("Error deleting course:", err);
       toast.error(error.response.data.message);
     }
   };
@@ -208,10 +195,9 @@ const Home = () => {
         {
           headers: {
             token: `Bearer ${token}`,
-          }, // Ensure cookies are sent with the request
+          },
         }
       );
-      // console.log("Course edited successfully:", response.data.data);
       toast.success("Course edited successfully");
       setCourses((prevCourses) =>
         prevCourses.map((course) =>
@@ -220,7 +206,6 @@ const Home = () => {
       );
       setOpenEditDialog(false);
     } catch (error) {
-      console.error(error.response.data.message);
       setError(error.response.data.message);
       toast.error(error.response.data.message);
       
@@ -308,7 +293,6 @@ const Home = () => {
               cursor: "pointer",
               "&:hover": { backgroundColor: "rgba(0,0,0,0.8)" },
             }}
-            // onClick={() => handleDescription(course)}
           >
             <Typography variant="h6" color="white" textAlign="center">
               {course.CourseCode}
@@ -328,8 +312,6 @@ const Home = () => {
             >
               {course.showDescription ? "Hide Description" : "Show Description"}
             </Typography>
-
-            {/* Edit and Delete Buttons */}
             <Box
               sx={{
                 position: "absolute",
@@ -357,7 +339,6 @@ const Home = () => {
                 <FaTrash />
               </Button>
             </Box>
-            {/* Description Box */}
             <Collapse in={course.showDescription} timeout="auto" unmountOnExit>
               <Box
                 sx={{
@@ -425,7 +406,6 @@ const Home = () => {
         </DialogActions>
       </Dialog>
       <div className="fixed bottom-5 right-5">
-        {/* Add Course Button */}
         <ShimmerButton
           variant="contained"
           color="primary"
@@ -433,8 +413,6 @@ const Home = () => {
         >
           Add Course
         </ShimmerButton>
-
-        {/* Dialog for Adding Course */}
         <Dialog
           open={open}
           onClose={handleClose}
@@ -443,7 +421,6 @@ const Home = () => {
           <DialogTitle>Add New Course</DialogTitle>
           <DialogContent>
             <form className="flex flex-col gap-4">
-              {/* Course Code Input */}
               <TextField
                 label="Course Code"
                 variant="outlined"
@@ -451,7 +428,6 @@ const Home = () => {
                 value={courseCode}
                 onChange={(e) => setCourseCode(e.target.value)}
               />
-              {/* Course Name Input */}
               <TextField
                 label="Course Name"
                 variant="outlined"
@@ -466,7 +442,6 @@ const Home = () => {
                 value={courseCredit}
                 onChange={(e) => setCourseCredit(e.target.value)}
               />
-              {/* Course Description Input */}
               <TextField
                 label="Course Description"
                 variant="outlined"
@@ -479,7 +454,6 @@ const Home = () => {
             </form>
           </DialogContent>
           <DialogActions>
-            {/* Cancel Button */}
             <Button
               onClick={handleClose}
               color="secondary"
@@ -487,7 +461,6 @@ const Home = () => {
             >
               Cancel
             </Button>
-            {/* Add Button */}
             <Button
               variant="contained"
               color="primary"

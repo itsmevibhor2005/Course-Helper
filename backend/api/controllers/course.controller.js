@@ -23,7 +23,7 @@ export const addCourse = asyncHandler(async (req, res) => {
     where: { id: req.user.id },
     data: {
       courses: {
-        connect: { id: course.id }, // Add the course ID to the courses array
+        connect: { id: course.id },
       },
     },
   });

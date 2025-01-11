@@ -1,7 +1,6 @@
 import { ApiErrors } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
-// import { User } from "../models/user.models.js";
 import prisma from "../db.js";
 
 
@@ -10,8 +9,6 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
   try {
     const token =
       req.cookies?.token || req.header("token")?.replace("Bearer ", "");
-
-    // console.log(token);
     if (!token) {
       throw new ApiErrors(401, "Unauthorized request");
     }
